@@ -1,0 +1,12 @@
+{
+    "ASHSKU": {
+        "asdk": "Azure Stack Development Kit",
+        "ash": "Azure Stack Hub",
+        "mdc": "Azure Mobile Data center"
+    },
+    "Azure Stack": {
+        "asdk": "Azure Stack Hub",
+        "ash": "Azure Stack Hub",
+        "mdc": "Azure Stack Hub"
+    }
+}

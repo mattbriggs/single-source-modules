@@ -54,11 +54,11 @@ colourless—confessedly helplessly provisional.
 
 #filter dictionary by key
 
-context = "context2"
-context_dict = {}
+contexts = ["context1", "context2", "context3"]
+for context in contexts:
+    print("{}====".format(context))
+    context_dict = {}
+    for term in var.keys():
+        context_dict[term] = var[term][context]
 
-for i in list(var.keys()):
-    print(i)
-    context_dict[i] = var[i][context]
-
-print(ST.render(text, context_dict))
+    print(ST.render(text, context_dict))
