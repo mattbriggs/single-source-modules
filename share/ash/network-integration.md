@@ -139,7 +139,7 @@ Most DNS registrars require you to provide a minimum of two DNS servers to compl
 
 The following architectural diagram shows the different network layers and ACLs.
 
-![Architectural diagram shows the different network layers and ACLs.](media/network-deployment/network-architecture.png)
+Architectural diagram shows the different network layers and ACLs.
 
 ##### Ports and URLs
 
