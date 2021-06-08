@@ -9,17 +9,17 @@ ms.date: 01/02/2020
 ms.lastreviewed: 01/02/2020
 ---
 
-# Network integration
+### Network integration
 
 This article covers Azure Stack Hub network integration for Azure Azure Stack Hub.
 
-## Border connectivity (uplink)
+#### Border connectivity (uplink)
 
 Network integration planning is an important prerequisite for successful Azure Stack Hub integrated systems deployment, operation, and management. Border connectivity planning begins by choosing if you want to use dynamic routing with the Border Gateway Protocol (BGP) or static routing. Dynamic routing requires that you assign a 16-bit BGP autonomous system number (public or private). Static routing uses a static default route that's assigned to the border devices.
 
 The edge switches require Layer 3 uplinks with point-to-point IPs (/30 networks) configured on the physical interfaces. Layer 2 uplinks with edge switches supporting Azure Stack Hub operations isn't supported.
 
-### BGP routing
+##### BGP routing
 
 Using a dynamic routing protocol like BGP guarantees that your system is always aware of network changes and facilitates administration. For enhanced security, you can set a password on the BGP peering between the edge and the border.
 
@@ -29,7 +29,7 @@ The software load balancer (SLB) running inside the Azure Stack Hub solution pee
 
 To ensure that user traffic immediately and transparently recovers from failure, the virtual private cloud or multi-chassis link aggregation (MLAG) configured between the TOR devices allows the use of MLAG to the hosts and HSRP or VRRP that provides network redundancy for the IP networks.
 
-### Static routing
+##### Static routing
 
 Static routing requires additional configuration to the border devices. It requires more manual intervention and management as well as thorough analysis before any change. Issues caused by a configuration error might take more time to roll back depending on the changes made. We don't recommend this routing method, but it's supported.
 
@@ -47,7 +47,7 @@ Static routing applies only to the uplinks between the edge and border switches.
 
 \*\*\* The switch management network is required and can be added separately from the switch infrastructure network.
 
-### Transparent proxy
+##### Transparent proxy
 
 If your datacenter requires all traffic to use a proxy, you must configure a transparent proxy to process all traffic from the rack to handle it according to policy. You must separate traffic between the zones on your network.
 
@@ -57,11 +57,11 @@ A transparent proxy (also known as an intercepting, inline, or forced proxy) int
 
 SSL traffic interception isn't supported and can lead to service failures when accessing endpoints. The maximum supported timeout to communicate with endpoints required for identity is 60 seconds with three retry attempts.
 
-## DNS
+#### DNS
 
 This section covers Domain Name System (DNS) configuration.
 
-### Configure conditional DNS forwarding
+##### Configure conditional DNS forwarding
 
 This guidance only applies to an Active Directory Federation Services (AD FS) deployment.
 
@@ -83,11 +83,11 @@ For this procedure, use a computer in your datacenter network that can communica
   Register-CustomDnsServer -CustomDomainName "contoso.com" -CustomDnsIPAddresses "192.168.1.1","192.168.1.2" 
   ```
 
-### Resolve Azure Stack Hub DNS names from outside Azure Stack Hub
+##### Resolve Azure Stack Hub DNS names from outside Azure Stack Hub
 
 The authoritative servers are the ones that hold the external DNS zone information and any user-created zones. Integrate with these servers to enable zone delegation or conditional forwarding to resolve Azure Stack Hub DNS names from outside Azure Stack Hub.
 
-### Get DNS Server external endpoint information
+##### Get DNS Server external endpoint information
 
 To integrate your Azure Stack Hub deployment with your DNS infrastructure, you need the following information:
 
@@ -108,7 +108,7 @@ This information is available in the admin portal but also created at the end of
 
 If the deployment virtual machine is no longer available or is inaccessible, you can obtain the values by connecting to the privileged endpoint and running the *Get-AzureStackStampInformation* PowerShell cmdlet. For more information, see privileged endpoint.
 
-### Set up conditional forwarding to Azure Stack Hub
+##### Set up conditional forwarding to Azure Stack Hub
 
 The simplest and most secure way to integrate Azure Stack Hub with your DNS infrastructure is to do conditional forwarding of the zone from the server that hosts the parent zone. We recommend this approach if you have direct control over the DNS servers that host the parent zone for your Azure Stack Hub external DNS namespace.
 
@@ -121,11 +121,11 @@ Example:
 - Corporate DNS domain name: *contoso.com*
 - Azure Stack Hub external DNS domain name: *azurestack.contoso.com*
 
-### Edit DNS forwarder IPs
+##### Edit DNS forwarder IPs
 
 DNS forwarder IPs are set during deployment of Azure Stack Hub. If the forwarder IPs need to be updated for any reason, you can edit the values by connecting to the privileged endpoint and running the *Get-AzSDnsForwarder* and *Set-AzSDnsForwarder [[-IPAddress] \<IPAddress[]\>]* PowerShell cmdlets. For more information, see privileged endpoint.
 
-### Delegate the external DNS zone to Azure Stack Hub
+##### Delegate the external DNS zone to Azure Stack Hub
 
 For DNS names to be resolvable from outside an Azure Stack Hub deployment, you need to set up DNS delegation.
 
@@ -133,7 +133,7 @@ Each registrar has their own DNS management tools to change the name server reco
 
 Most DNS registrars require you to provide a minimum of two DNS servers to complete the delegation.
 
-### Firewall
+##### Firewall
 
  Azure Stack Hub sets up virtual IP addresses (VIPs) for its infrastructure roles. These VIPs are allocated from the public IP address pool. Each VIP is secured with an access control list (ACL) in the software-defined network layer. ACLs are also used across the physical switches (TORs and BMC) to further harden the solution. A DNS entry is created for each endpoint in the external DNS zone that's specified at deployment time. For example, the user portal is assigned the DNS host entry of portal.*\<region\>.\<fqdn\>*.
 
@@ -141,13 +141,13 @@ The following architectural diagram shows the different network layers and ACLs.
 
 ![Architectural diagram shows the different network layers and ACLs.](media/network-deployment/network-architecture.png)
 
-### Ports and URLs
+##### Ports and URLs
 
 To make Azure Stack Hub services like portals, Azure Resource Manager, and DNS available to external networks, you must allow inbound traffic to these endpoints for specific URLs, ports, and protocols.
 
 In a deployment where a transparent proxy uplinks to a traditional proxy server or a firewall is protecting the solution, you must allow specific ports and URLs for both inbound and outbound communication. Examples include ports and URLs for identity, Azure Stack Hub Hub Marketplace, patch and update, registration, and usage data.
 
-### Outbound communication
+##### Outbound communication
 
  Azure Stack Hub supports only transparent proxy servers. In a deployment with a transparent proxy uplink to a traditional proxy server, you must allow the ports and URLs in the following table for outbound communication when you deploy in connected mode.
 
@@ -176,7 +176,7 @@ SSL traffic interception isn't supported and can lead to service failures when a
 |Diagnostic log collection service|Azure Blob Storage-provided shared access signature URL|HTTPS|443|Public VIP - /27|
 |   |   |   |   |   |
                                                                                 
-### Inbound communication
+##### Inbound communication
 
 A set of infrastructure VIPs is required for publishing Azure Stack Hub endpoints to external networks. The Endpoint (VIP) table shows each endpoint, the required port, and protocol. For endpoints that require additional resource providers, like the SQL resource provider, see the specific resource provider deployment documentation.
 
