@@ -1,4 +1,4 @@
-# This is a test file
+## This is a test file
 
 During the first weeks of their acquaintance Morgan had been as puzzling
 as a page in an unknown language -- altogether different from the obvious
