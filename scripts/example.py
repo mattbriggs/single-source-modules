@@ -3,7 +3,7 @@
 # https://github.com/defunkt/pystache
 
 import json
-import pystache as ST
+import chevron as ST
 
 context_variables = '''{
     "concept1": {
@@ -50,6 +50,18 @@ reaction of the {{concept1}}, at any rate, went ever so much further.  He had
 thought himself very sharp that first day in hitting them all off in his
 mind with the **cosmopolite** label.  Later it seemed feeble and
 colourless—confessedly helplessly provisional.
+
+{{#context1 }}
+This is context one.
+{{/context1 }}
+
+{{#context2 }}
+  This is context two.
+{{/context2 }}
+
+{{#context3 }}
+  This is context three.
+{{/context3 }}
 '''
 
 #filter dictionary by key
@@ -60,5 +72,7 @@ for context in contexts:
     context_dict = {}
     for term in var.keys():
         context_dict[term] = var[term][context]
+    context_dict[context] = True
+    print(context_dict)
 
     print(ST.render(text, context_dict))
