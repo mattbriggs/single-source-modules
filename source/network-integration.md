@@ -19,6 +19,23 @@ Network integration planning is an important prerequisite for successful {{Azure
 
 The edge switches require Layer 3 uplinks with point-to-point IPs (/30 networks) configured on the physical interfaces. Layer 2 uplinks with edge switches supporting {{Azure Stack}} operations isn't supported.
 
+{{#asdk}}
+This section is here because it has to do with the {{ASHSKU}}. You can install this
+on your own hardware and enjoy it.
+{{/asdk}}
+
+{{#ash}}
+This section is here because it has to do with the {{ASHSKU}}. You can work an
+OEM partner to purchase the hardware and they will install the {{ASHSKU}} for you.
+You can use the {{ASHSKU}} in both connected and disconnected modes.
+{{/ash}}
+
+{{#mdc}}
+This section is here because it has to do with the {{ASHSKU}}. You can put this
+in a box and take the box where ever you need to go, be it Antarctica, Mars, or
+the back of a circus truck.
+{{/mdc}}
+
 ##### BGP routing
 
 Using a dynamic routing protocol like BGP guarantees that your system is always aware of network changes and facilitates administration. For enhanced security, you can set a password on the BGP peering between the edge and the border.

@@ -16,6 +16,7 @@ for context in contexts:
         context_dict = {}
         for term in full_context.keys():
             context_dict[term] = full_context[term][context]
+        context_dict[context] = True
         outpath = "C:\\git\\mb\\single-source-modules\\share\\{}\\{}".format(context, file_name)
         text = ST.render(template, context_dict)
         CU.write_text(text, outpath)
