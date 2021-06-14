@@ -19,6 +19,12 @@ Network integration planning is an important prerequisite for successful Azure S
 
 The edge switches require Layer 3 uplinks with point-to-point IPs (/30 networks) configured on the physical interfaces. Layer 2 uplinks with edge switches supporting Azure Stack Hub operations isn't supported.
 
+
+This section is here because it has to do with the Azure Stack Hub. You can work an
+OEM partner to purchase the hardware and they will install the Azure Stack Hub for you.
+You can use the Azure Stack Hub in both connected and disconnected modes.
+
+
 ##### BGP routing
 
 Using a dynamic routing protocol like BGP guarantees that your system is always aware of network changes and facilitates administration. For enhanced security, you can set a password on the BGP peering between the edge and the border.
